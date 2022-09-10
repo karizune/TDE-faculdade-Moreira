@@ -1,0 +1,23 @@
+<div class="body-container">
+    <app-navbar [ActualArea]="Area"></app-navbar>
+    <div class="inner-body-container" style="background-color: transparent; border: 0px;">
+      <div style="display: flex; justify-content: center;">
+        <div style="display: flex; justify-content: center; border-radius: 20px; border: 0px; background-color: white; width: 75%; max-width: 1000px; min-height: 200px;">
+            <mat-tab-group >
+            <div *ngFor="let pergunta of entrevista">
+              <mat-tab label='Pergunta {{pergunta.Numero}}'> 
+                <mat-accordion>
+                  <mat-expansion-panel >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>{{pergunta.Pergunta}}</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>{{pergunta.Resposta}}</p>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </mat-tab>
+            </div>
+            </mat-tab-group>
+          </div>
+      </div>
+    </div>
+</div>

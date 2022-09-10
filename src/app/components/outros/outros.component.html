@@ -1,0 +1,13 @@
+<div class="body-container">
+    <app-navbar [ActualArea]="Area"></app-navbar>
+    <div class="inner-body-container" style="background-color: transparent; border: 0px;">
+      <div style="display: flex; justify-content: center;">
+        <div style="background-color: white; border-radius: 20px; padding: 20px">
+            <div *ngFor="let item of items">
+                <h3 style="font-weight: bold; text-align: center;">{{item.Title}}</h3>
+                <p style="max-width: 600px;">{{item.Body}}</p>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
