@@ -61,4 +61,8 @@ export class EntrevistaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openLinkedin(): void{
+    window.open("https://www.linkedin.com/in/victor-emanuel-alves-00973516b/");
+  }
+
 }

@@ -1,23 +1,36 @@
 <div class="body-container">
-    <app-navbar [ActualArea]="Area"></app-navbar>
-    <div class="inner-body-container" style="background-color: transparent; border: 0px;">
+  <app-navbar [ActualArea]="Area"></app-navbar>
+  <div class="inner-body-container" style="background-color: transparent; border: 0px; padding-left: 20%; padding-right: 20%;">
+    <div class="entrevista-container">
+      <div style="display: flex; justify-content:center;">
+
+        <div class="linkedin-click" (click)="openLinkedin()">
+          <img class="image" src="https://media-exp1.licdn.com/dms/image/C4E03AQFntUa1CUPIKw/profile-displayphoto-shrink_800_800/0/1546019057935?e=1668643200&v=beta&t=fPzJ5HiegwdbcDYEjkaNJnTO92rplFODj2oISBvKjq8">
+        </div>
+      </div>
+      
+      <br>
+      <p style="text-align: center; font-weight: bold; font-size: large;">
+        Entrevista com Victor Alves - Bit Pagg
+      </p> 
+      <br>
+      
       <div style="display: flex; justify-content: center;">
-        <div style="display: flex; justify-content: center; border-radius: 20px; border: 0px; background-color: white; width: 75%; max-width: 1000px; min-height: 200px;">
-            <mat-tab-group >
-            <div *ngFor="let pergunta of entrevista">
-              <mat-tab label='Pergunta {{pergunta.Numero}}'> 
-                <mat-accordion>
-                  <mat-expansion-panel >
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>{{pergunta.Pergunta}}</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <p>{{pergunta.Resposta}}</p>
-                  </mat-expansion-panel>
-                </mat-accordion>
-              </mat-tab>
-            </div>
-            </mat-tab-group>
+        <mat-tab-group >
+          <div *ngFor="let pergunta of entrevista">
+            <mat-tab label='Pergunta {{pergunta.Numero}}'> 
+              <mat-accordion>
+                <mat-expansion-panel >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>{{pergunta.Pergunta}}</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p>{{pergunta.Resposta}}</p>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </mat-tab>
           </div>
+        </mat-tab-group>
       </div>
     </div>
+  </div>
 </div>
