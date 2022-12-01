@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Route } from '@angular/router';
 import { EntrevistaComponent } from './components/entrevista/entrevista.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
 import { OutrosComponent } from './components/outros/outros.component';
 import { ResenhaComponent } from './components/resenha/resenha.component';
-import { UserProfileComponent } from './components/User/user-profile/user-profile.component';
 
 const routes: Routes = [];
 
@@ -20,7 +18,6 @@ function PushRoutes(itens: Array<Route[]>): void{
 function GetRoutes(): Routes{
   PushRoutes([
     GetDefaultRoutes(),
-    GetUserRoutes(),
     GetOtherRoutes()
   ]);
 
@@ -29,20 +26,13 @@ function GetRoutes(): Routes{
 
 function GetDefaultRoutes(): Route[]{
   var routes: Route[] = [
-    {path: 'login', component: LoginComponent},
     {path: 'home', component: HomeComponent}
   ]
 
   return routes;
 }
 
-function GetUserRoutes(): Route[]{
-  var routes: Route[] = [
-    {path: 'user/profile', component: UserProfileComponent}
-  ];
 
-  return routes;
-}
 
 function GetOtherRoutes(): Route[]{
   var routes: Route[] = [

@@ -1,218 +1,218 @@
-import { environment } from '../../environments/environments';
-import { User } from '../interfaces/user.interface'
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { interval, firstValueFrom } from 'rxjs';
-import { Auth } from '../interfaces/auth.interface';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
-import { ImageService } from './image.service';
+// // import { environment } from '../../environments/environments';
+// import { User } from '../interfaces/user.interface'
+// import { Injectable } from '@angular/core';
+// import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+// import { map } from 'rxjs/operators';
+// import { interval, firstValueFrom } from 'rxjs';
+// import { Auth } from '../interfaces/auth.interface';
+// import { throwToolbarMixedModesError } from '@angular/material/toolbar';
+// import { ImageService } from './image.service';
 
-@Injectable({
-    providedIn: 'root'
-})
+// @Injectable({
+//     providedIn: 'root'
+// })
 
-export class UserService{
-    private DozedexApiURL = environment.API_URL;
-    private API_UserRoute = `${this.DozedexApiURL}/user`;
+// export class UserService{
+//     // private DozedexApiURL = environment.API_URL;
+//     // private API_UserRoute = `${this.DozedexApiURL}/user`;
 
-    constructor(
-        private http: HttpClient,
-        private imageService: ImageService    
-    ) {}
-    
-    //ok
-    async GetUserByEmail(email: string): Promise<User>{
-        var objeto: {Email: string} = {Email: email};
-        var response: any = await firstValueFrom(this.http.post(`${this.API_UserRoute}/getUserByEmail`, objeto));
-        var result: User = {
-            Email: response['Email'],
-            KeepLogin: false,
-            Password: '',
-            ImagePath: '',
-            ImageUrl: response['ImageUrl'],
-            Name: response['Name'],
-            Token: '',
-            UserName: response['UserName']
-        }
+//     constructor(
+//         private http: HttpClient,
+//         private imageService: ImageService
+//     ) {}
 
-        return result;
-    }
+//     // //ok
+//     // async GetUserByEmail(email: string): Promise<User>{
+//     //     var objeto: {Email: string} = {Email: email};
+//     //     var response: any = await firstValueFrom(this.http.post(`${this.API_UserRoute}/getUserByEmail`, objeto));
+//     //     var result: User = {
+//     //         Email: response['Email'],
+//     //         KeepLogin: false,
+//     //         Password: '',
+//     //         ImagePath: '',
+//     //         ImageUrl: response['ImageUrl'],
+//     //         Name: response['Name'],
+//     //         Token: '',
+//     //         UserName: response['UserName']
+//     //     }
 
-    //ok
-    async ConfigDefault(user: User): Promise<void> {
-        let token = user.Token;
-        let keepLogin = user.KeepLogin;
-        let _user = await this.GetUserByEmail(user.Email);
+//     //     return result;
+//     // }
 
-        user = _user;
-        user.Token = token;  
-        user.KeepLogin = keepLogin;  
-        user.ImagePath = this.imageService.GetFullImageURL(user.ImageUrl ?? "");
-        
-        this.setEmail(user.Email);
-        this.setImageUrl(user.ImageUrl);
-        this.setKeepLogin(user.KeepLogin);
-        this.setName(user.Name);
-        this.setToken(user.Token);
-        this.setUserName(user.UserName);
-        this.setImagePath(user.ImagePath);
-    }
+//     //ok
+//     async ConfigDefault(user: User): Promise<void> {
+//         let token = user.Token;
+//         let keepLogin = user.KeepLogin;
+//         let _user = await this.GetUserByEmail(user.Email);
 
-    //ok
-    GetActualUser(): User{
-        var user: User = {
-            Email: this.getEmail(),
-            KeepLogin: this.getKeepLogin(),
-            Password: "",
-            ImageUrl: this.getImageURL(),
-            ImagePath: this.getImagePath(),
-            Name: this.getName(),
-            Token: this.getToken(),
-            UserName: this.getUserName()
-        };
+//         user = _user;
+//         user.Token = token;
+//         user.KeepLogin = keepLogin;
+//         user.ImagePath = this.imageService.GetFullImageURL(user.ImageUrl ?? "");
 
-        return user;
-    }
+//         this.setEmail(user.Email);
+//         this.setImageUrl(user.ImageUrl);
+//         this.setKeepLogin(user.KeepLogin);
+//         this.setName(user.Name);
+//         this.setToken(user.Token);
+//         this.setUserName(user.UserName);
+//         this.setImagePath(user.ImagePath);
+//     }
 
-    VerifyUser(user: User): boolean{
-        if(!(
-            user.Email.length > 0
-            && user.Token !== undefined
-            && user.Token.length > 0
-        )){
-            return false;
-        }
+//     //ok
+//     GetActualUser(): User{
+//         var user: User = {
+//             Email: this.getEmail(),
+//             KeepLogin: this.getKeepLogin(),
+//             Password: "",
+//             ImageUrl: this.getImageURL(),
+//             ImagePath: this.getImagePath(),
+//             Name: this.getName(),
+//             Token: this.getToken(),
+//             UserName: this.getUserName()
+//         };
 
-        return true;
-    }
+//         return user;
+//     }
 
-    //ok
-    Reset(){
-        this.setImagePath('');
-        this.setEmail('');
-        this.setToken('');
-        this.setImageUrl('');
-        this.setKeepLogin(false);
-        this.setName('');
-        this.setUserName('');
-    }
+//     VerifyUser(user: User): boolean{
+//         if(!(
+//             user.Email.length > 0
+//             && user.Token !== undefined
+//             && user.Token.length > 0
+//         )){
+//             return false;
+//         }
 
-    //ok
-    async RefreshData(): Promise<void>{
-        var user: User = this.GetActualUser();
-        this.Reset();
-        await this.ConfigDefault(user);
-    }
+//         return true;
+//     }
 
-    //ok
-    //#region get
+//     //ok
+//     Reset(){
+//         this.setImagePath('');
+//         this.setEmail('');
+//         this.setToken('');
+//         this.setImageUrl('');
+//         this.setKeepLogin(false);
+//         this.setName('');
+//         this.setUserName('');
+//     }
 
-    private getToken(): string {
-        return localStorage.getItem("app_user_token") ?? "";
-    }
+//     //ok
+//     async RefreshData(): Promise<void>{
+//         var user: User = this.GetActualUser();
+//         this.Reset();
+//         await this.ConfigDefault(user);
+//     }
 
-    private getEmail(): string {
-        return localStorage.getItem("app_user_email") ?? "";
-    }
+//     //ok
+//     //#region get
 
-    private getKeepLogin(): boolean {
-        var keepLogin: string = localStorage.getItem("app_user_keepLogin") ?? '';
-        return keepLogin.length > 0 ? keepLogin === 'true' : false;
-    }
+//     private getToken(): string {
+//         return localStorage.getItem("app_user_token") ?? "";
+//     }
 
-    private getImageURL(): string {
-        var url = localStorage.getItem("app_user_userImageUrl") ?? '';
-        
-        if(url?.length === 0){
-            return "https://cdn.glitch.com/0e4d1ff3-5897-47c5-9711-d026c01539b8%2Fbddfd6e4434f42662b009295c9bab86e.gif?v=1573157191712";
-        }
-        
-        return url;
-    }
+//     private getEmail(): string {
+//         return localStorage.getItem("app_user_email") ?? "";
+//     }
 
-    private getName(): string {
-        return localStorage.getItem("app_user_name") ?? "";
-    }
+//     private getKeepLogin(): boolean {
+//         var keepLogin: string = localStorage.getItem("app_user_keepLogin") ?? '';
+//         return keepLogin.length > 0 ? keepLogin === 'true' : false;
+//     }
 
-    private getUserName(): string {
-        return localStorage.getItem("app_user_username") ?? "";
-    }
+//     private getImageURL(): string {
+//         var url = localStorage.getItem("app_user_userImageUrl") ?? '';
 
-    private getImagePath(): string {
-        return localStorage.getItem("app_user_userImagePath") ?? "";
-    }
+//         if(url?.length === 0){
+//             return "https://cdn.glitch.com/0e4d1ff3-5897-47c5-9711-d026c01539b8%2Fbddfd6e4434f42662b009295c9bab86e.gif?v=1573157191712";
+//         }
 
-    //#endregion get
+//         return url;
+//     }
 
-    //ok
-    //#region set
+//     private getName(): string {
+//         return localStorage.getItem("app_user_name") ?? "";
+//     }
 
-    private setToken(token: string | null | undefined): void {
-        localStorage.setItem("app_user_token", token ?? "");
-    }
+//     private getUserName(): string {
+//         return localStorage.getItem("app_user_username") ?? "";
+//     }
 
-    private setEmail(email: string | null | undefined) : void {
-        localStorage.setItem("app_user_email", email ?? "");
-    }
+//     private getImagePath(): string {
+//         return localStorage.getItem("app_user_userImagePath") ?? "";
+//     }
 
-    private setKeepLogin(keepLogin: boolean | null | undefined): void {
-        localStorage.setItem("app_user_keepLogin", keepLogin ? 'true' : 'false');
-    }
+//     //#endregion get
 
-    private setImageUrl(imageUrl: string | null | undefined): void {
-        localStorage.setItem("app_user_userImageUrl", imageUrl ?? "");
-    }
+//     //ok
+//     //#region set
 
-    private setUserName(username: string | null | undefined): void{
-        localStorage.setItem("app_user_username", username ?? "");
-    }
+//     private setToken(token: string | null | undefined): void {
+//         localStorage.setItem("app_user_token", token ?? "");
+//     }
 
-    private setName(name: string | null | undefined): void{
-        localStorage.setItem("app_user_name", name ?? "");
-    }
+//     private setEmail(email: string | null | undefined) : void {
+//         localStorage.setItem("app_user_email", email ?? "");
+//     }
 
-    private setImagePath(path: string | null | undefined): void{
-        localStorage.setItem("app_user_userImagePath", path ?? "");
-    }
+//     private setKeepLogin(keepLogin: boolean | null | undefined): void {
+//         localStorage.setItem("app_user_keepLogin", keepLogin ? 'true' : 'false');
+//     }
 
-    //#endregion set
+//     private setImageUrl(imageUrl: string | null | undefined): void {
+//         localStorage.setItem("app_user_userImageUrl", imageUrl ?? "");
+//     }
 
-    async UpdateUser(user: User): Promise<string>{
-        try{
-            if(user === undefined || user.OldPassword === undefined || user.OldPassword.length === 0){
-                return "Verifique os campos e tente novamente";
-            }
+//     private setUserName(username: string | null | undefined): void{
+//         localStorage.setItem("app_user_username", username ?? "");
+//     }
 
-            var OldPassword: string = user.OldPassword;
+//     private setName(name: string | null | undefined): void{
+//         localStorage.setItem("app_user_name", name ?? "");
+//     }
 
-            var passwordValid: boolean = await this.VerifyPassword(user.Email, OldPassword);
+//     private setImagePath(path: string | null | undefined): void{
+//         localStorage.setItem("app_user_userImagePath", path ?? "");
+//     }
 
-            if(!passwordValid){
-                return "Senha atual incorreta";
-            }
+//     //#endregion set
 
-            this.setKeepLogin(user.KeepLogin);
+//     async UpdateUser(user: User): Promise<string>{
+//         try{
+//             if(user === undefined || user.OldPassword === undefined || user.OldPassword.length === 0){
+//                 return "Verifique os campos e tente novamente";
+//             }
 
-            await firstValueFrom(this.http.post(`${this.API_UserRoute}/update`, {
-                Email: user.Email,
-                UserName: user.UserName,
-                oldPassword: OldPassword,
-                Password: user.Password,
-                ImageUrl: user.ImageUrl,
-                Name: user.Name
-            }));
-            return "Dados Atualizados!";
-        }
-        catch(ex: any){
-            console.log(ex);
-            return "Falha ao atualizar os dados";
-        }
-    }
+//             var OldPassword: string = user.OldPassword;
 
-    async VerifyPassword(email: string, password: string): Promise<boolean>{
-        var response: any = await firstValueFrom(this.http.post(`${this.API_UserRoute}/verifyPassword`, {Email: email, Password: password}));
-        var validator: boolean = response['isValid'] === true || response['isValid'] === "true";
-        return validator;
-    }
-}
+//             var passwordValid: boolean = await this.VerifyPassword(user.Email, OldPassword);
+
+//             if(!passwordValid){
+//                 return "Senha atual incorreta";
+//             }
+
+//             this.setKeepLogin(user.KeepLogin);
+
+//             await firstValueFrom(this.http.post(`${this.API_UserRoute}/update`, {
+//                 Email: user.Email,
+//                 UserName: user.UserName,
+//                 oldPassword: OldPassword,
+//                 Password: user.Password,
+//                 ImageUrl: user.ImageUrl,
+//                 Name: user.Name
+//             }));
+//             return "Dados Atualizados!";
+//         }
+//         catch(ex: any){
+//             console.log(ex);
+//             return "Falha ao atualizar os dados";
+//         }
+//     }
+
+//     async VerifyPassword(email: string, password: string): Promise<boolean>{
+//         var response: any = await firstValueFrom(this.http.post(`${this.API_UserRoute}/verifyPassword`, {Email: email, Password: password}));
+//         var validator: boolean = response['isValid'] === true || response['isValid'] === "true";
+//         return validator;
+//     }
+// }

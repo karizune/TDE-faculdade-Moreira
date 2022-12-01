@@ -13,11 +13,8 @@ import { environment } from '../environments/environment';
 //components
 import { NavbarComponent } from './components/assets/navbar/navbar.component';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { UserProfileComponent } from './components/User/user-profile/user-profile.component';
 import { PulsingButtonComponent } from './components/assets/buttons/pulsing-button/pulsing-button.component';
-import { BottombarComponent } from './components/assets/bottombar/bottombar.component';
 import { DialogComponent } from './components/assets/dialog/dialog.component';
 import { MultiSelectInputComponent } from './components/assets/inputs/multi-select-input/multi-select-input.component';
 import { MaterialModule } from './modules/material-module';
@@ -29,12 +26,9 @@ import { OutrosComponent } from './components/outros/outros.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HomeComponent,
     NavbarComponent,
-    UserProfileComponent,
     PulsingButtonComponent,
-    BottombarComponent,
     DialogComponent,
     MultiSelectInputComponent,
     LoadingScreenComponent,

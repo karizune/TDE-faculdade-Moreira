@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CardOption, Card } from 'src/app/interfaces/small-interfaces/small-interfaces';
 import { AppService } from 'src/app/services/app.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +11,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
       private router: Router,
-      private AppService: AppService
     ) { }
 
   Area: string = "Página inicial";

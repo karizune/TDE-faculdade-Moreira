@@ -1,11 +1,6 @@
-import { environment } from '../../environments/environments';
-import { User } from '../interfaces/user.interface'
+// import { environment } from '../../environments/environments';
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { interval, firstValueFrom } from 'rxjs';
-import { Auth } from '../interfaces/auth.interface';
-import { UserService } from './user.service';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -14,13 +9,10 @@ import { Router } from '@angular/router';
 
 export class AppService implements OnInit{
 
-    private DozedexApiURL = environment.API_URL;
-    private AuthApiURL = `${this.DozedexApiURL}/auth`
     private pathsNavigated: string[] = [];
 
     constructor(
         private http: HttpClient,
-        private userService: UserService,
         private router: Router
     ) {}
 
@@ -44,43 +36,6 @@ export class AppService implements OnInit{
         var isToggled: boolean = this.GetSideNavBar();
         this.SetSideNavBar(!isToggled);
         return this.GetSideNavBar();
-    }
-
-    VerifyLogin(): void{
-        if(!(this.userService.VerifyUser(this.userService.GetActualUser()))){
-            this.router.navigate(['/login']);
-        }
-    }
-
-    async RefreshPage(path: string): Promise<void>{
-        await this.userService.RefreshData();
-        await this.router.navigateByUrl('/home', {skipLocationChange: true});
-        await this.router.navigate([path]);
-    }
-
-    async VerifyUser(user: User): Promise<Auth>{
-        var response: any = await firstValueFrom(this.http.post(`${this.AuthApiURL}`, user));
-        var result: Auth = {
-            auth: response['auth'],
-            token: response['token']
-        };
-
-        if(result.auth){
-            user.Token = result.token;
-            await this.userService.ConfigDefault(user);
-        }
-        
-        return result;
-    }
-
-    logOut(): void {
-        this.userService.Reset();
-        this.systemCacheReset();
-        this.router.navigate(['/login']);
-    }
-
-    getBaseGoogleDriveURL(): string {
-        return environment.GOOGLEDRIVE_URL;
     }
 
     notImplemented(): void{
