@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuOption } from '../../../interfaces/small-interfaces/small-interfaces';
 import { AppService } from '../../../services/app.service';
-import { User } from '../../../interfaces/user.interface'
 
 @Component({
   selector: 'app-navbar',
@@ -21,8 +20,6 @@ export class NavbarComponent implements OnInit {
   @Input() HaveAreaAction: boolean = false;
   @Input() AreaActionTitle: string = '';
 
-  altText: string = "imagem de perfil";
-  showFiller: Boolean =  false;
   loading: Boolean = false;
 
   menuOptions: MenuOption[] = [
@@ -37,6 +34,10 @@ export class NavbarComponent implements OnInit {
     {
       Title: "Resenha",
       Function: () => this.router.navigate(['resenha'])
+    },
+    {
+      Title: "ITIL V4",
+      Function: () => this.router.navigate(['pesquisa-itil'])
     },
     {
       Title: "Demais itens",

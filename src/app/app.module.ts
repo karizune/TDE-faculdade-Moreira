@@ -22,6 +22,7 @@ import { LoadingScreenComponent } from './components/assets/loading-screen/loadi
 import { EntrevistaComponent } from './components/entrevista/entrevista.component';
 import { ResenhaComponent } from './components/resenha/resenha.component';
 import { OutrosComponent } from './components/outros/outros.component';
+import { PesquisaItilComponent } from './components/pesquisa-itil/pesquisa-itil.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { OutrosComponent } from './components/outros/outros.component';
     EntrevistaComponent,
     ResenhaComponent,
     OutrosComponent,
+    PesquisaItilComponent,
   ],
   imports: [
     MaterialModule,

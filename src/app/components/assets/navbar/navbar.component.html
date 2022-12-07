@@ -4,9 +4,10 @@
         <h2 style="text-align: center; margin-top: -5px;">Menu</h2>
         <mat-divider></mat-divider>
         <br>
-        <div *ngFor="let option of menuOptions">
-            <button mat-menu-item (click)="option.Function()" style="color: white;">{{option.Title}}</button>
-        </div>
+
+        <mat-list role="list" *ngFor="let option of menuOptions">
+            <mat-list-item role="listitem" style="color: white; cursor: pointer;" (click)="option.Function()">{{option.Title}}</mat-list-item>
+        </mat-list>
     </mat-drawer>
 
     <mat-toolbar color="primary" style="overflow-x: hidden;">

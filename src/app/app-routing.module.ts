@@ -3,6 +3,7 @@ import { RouterModule, Routes, Route } from '@angular/router';
 import { EntrevistaComponent } from './components/entrevista/entrevista.component';
 import { HomeComponent } from './components/home/home.component';
 import { OutrosComponent } from './components/outros/outros.component';
+import { PesquisaItilComponent } from './components/pesquisa-itil/pesquisa-itil.component';
 import { ResenhaComponent } from './components/resenha/resenha.component';
 
 const routes: Routes = [];
@@ -38,7 +39,8 @@ function GetOtherRoutes(): Route[]{
   var routes: Route[] = [
     {path: 'entrevista', component: EntrevistaComponent},
     {path: 'resenha', component: ResenhaComponent},
-    {path: 'gestao-e-governanca-de-ti', component: OutrosComponent}
+    {path: 'gestao-e-governanca-de-ti', component: OutrosComponent},
+    {path: 'pesquisa-itil', component: PesquisaItilComponent}
   ];
 
   return routes;

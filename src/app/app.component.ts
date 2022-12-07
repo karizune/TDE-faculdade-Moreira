@@ -19,7 +19,14 @@ export class AppComponent implements OnInit {
   {}
 
   ngOnInit(): void{
-    this.router.navigate(['/home']);
+    let lastPath: string = this.AppService.getLastPath();
+
+    if(lastPath.length > 0){
+      this.router.navigate([lastPath])
+    }
+    else{
+      this.router.navigate(['/home']);
+    }
   }
 
   toogleSideNav(): boolean{
