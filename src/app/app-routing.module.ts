@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { OutrosComponent } from './components/outros/outros.component';
 import { PesquisaItilComponent } from './components/pesquisa-itil/pesquisa-itil.component';
 import { ResenhaComponent } from './components/resenha/resenha.component';
+import { TIEmGestaoComBIComponent } from './components/ti-em-gestao-com-bi/ti-em-gestao-com-bi.component';
 
 const routes: Routes = [];
 
@@ -33,14 +34,13 @@ function GetDefaultRoutes(): Route[]{
   return routes;
 }
 
-
-
 function GetOtherRoutes(): Route[]{
   var routes: Route[] = [
     {path: 'entrevista', component: EntrevistaComponent},
     {path: 'resenha', component: ResenhaComponent},
     {path: 'gestao-e-governanca-de-ti', component: OutrosComponent},
-    {path: 'pesquisa-itil', component: PesquisaItilComponent}
+    {path: 'pesquisa-itil', component: PesquisaItilComponent},
+    {path: 'TIEmGestaoComBI', component: TIEmGestaoComBIComponent}
   ];
 
   return routes;

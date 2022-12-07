@@ -23,6 +23,7 @@ import { EntrevistaComponent } from './components/entrevista/entrevista.componen
 import { ResenhaComponent } from './components/resenha/resenha.component';
 import { OutrosComponent } from './components/outros/outros.component';
 import { PesquisaItilComponent } from './components/pesquisa-itil/pesquisa-itil.component';
+import { TIEmGestaoComBIComponent } from './components/ti-em-gestao-com-bi/ti-em-gestao-com-bi.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { PesquisaItilComponent } from './components/pesquisa-itil/pesquisa-itil.
     ResenhaComponent,
     OutrosComponent,
     PesquisaItilComponent,
+    TIEmGestaoComBIComponent,
   ],
   imports: [
     MaterialModule,

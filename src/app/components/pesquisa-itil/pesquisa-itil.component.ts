@@ -11,7 +11,6 @@ export class PesquisaItilComponent implements OnInit {
   constructor() { }
 
   Area: string = "ITIL V4";
-
   items: Item[] = [
     {
       Title: "ITIL V4?",
@@ -35,6 +34,6 @@ export class PesquisaItilComponent implements OnInit {
   }
 
   Redireciona(): void{
-    window.open("https://www.google.com.br")
+    window.open("https://www.itsmnapratica.com.br/tudo-sobre-itil/")
   }
 }

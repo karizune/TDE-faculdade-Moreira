@@ -21,34 +21,11 @@ export class NavbarComponent implements OnInit {
   @Input() AreaActionTitle: string = '';
 
   loading: Boolean = false;
-
-  menuOptions: MenuOption[] = [
-    {
-      Title: "Início",
-      Function: () => this.router.navigate(['home'])
-    },
-    {
-      Title: "Entrevista",
-      Function: () => this.router.navigate(['entrevista'])
-    },
-    {
-      Title: "Resenha",
-      Function: () => this.router.navigate(['resenha'])
-    },
-    {
-      Title: "ITIL V4",
-      Function: () => this.router.navigate(['pesquisa-itil'])
-    },
-    {
-      Title: "Demais itens",
-      Function: () => this.router.navigate(['gestao-e-governanca-de-ti'])
-    }
-  ];
+  menuOptions: MenuOption[] = this.AppService.GetSideNavBarOptions();
 
   ngOnInit(): void {
     this.AppService.addCurrentPath(this.router.url);
   };
-
 
   async RefreshPage(): Promise<void>{
     this.loading = true;
